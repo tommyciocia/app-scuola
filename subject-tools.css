@@ -1,0 +1,1 @@
+.subject { position:relative; }.delete-subject { position:absolute; top:14px; right:14px; display:grid; place-items:center; width:25px; height:25px; border-radius:7px; color:#9f98a2; background:#f6f3ef; font-size:18px; line-height:1; }.delete-subject:hover { color:#bd5d36; background:var(--orange-soft); }

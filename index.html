@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#272535" />
+    <title>in ordine — planner scolastico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="grades.css" />
+    <link rel="stylesheet" href="calendar-notes.css" />
+    <link rel="stylesheet" href="subject-tools.css" />
+    <link rel="stylesheet" href="enhancements.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#oggi"><span class="brand-mark">✦</span>in ordine</a>
+      <p class="school-year">ANNO SCOLASTICO 2026–27</p>
+      <nav aria-label="Menu principale">
+        <a class="active" href="#oggi" data-page="oggi"><span>⌂</span> Oggi</a>
+        <a href="#agenda" data-page="agenda"><span>▦</span> Agenda</a>
+        <a href="#materie" data-page="materie"><span>◒</span> Materie</a>
+        <a href="#voti" data-page="voti"><span>★</span> Voti</a>
+        <a href="#progressi" data-page="progressi"><span>↗</span> Progressi</a>
+      </nav>
+      <div class="profile"><span>TM</span><div><strong>Tommy</strong><small>Il tuo spazio privato</small></div></div>
+      <p class="local-status">● Salvato automaticamente su questo dispositivo</p>
+    </aside>
+
+    <main>
+      <section class="page active" id="oggi">
+        <header class="hero">
+          <div>
+            <p class="eyebrow" id="todayLabel">OGGI</p>
+            <h1>Un anno <em>in ordine.</em></h1>
+            <p class="intro">Compiti, verifiche e obiettivi, tutti nello stesso posto.</p>
+          </div>
+          <button class="primary" data-open="taskDialog">+ Aggiungi compito</button>
+        </header>
+        <section class="stats" id="stats"></section>
+        <section class="today-grid">
+          <article class="today-card">
+            <div class="card-title"><span>DA FARE OGGI</span><button class="icon-button" data-page-go="agenda" title="Apri agenda">↗</button></div>
+            <div class="task-list compact" id="todayTasks"></div>
+            <button class="text-button" data-open="taskDialog">+ Aggiungi un'attività</button>
+          </article>
+          <article class="next-card" id="nextDeadline"></article>
+        </section>
+        <section class="section-heading"><div><p class="eyebrow">IN ARRIVO</p><h2>Prossimi 7 giorni</h2></div><button class="ghost" data-page-go="agenda">Apri calendario <span>→</span></button></section>
+        <div class="upcoming" id="upcomingTasks"></div>
+      </section>
+
+      <section class="page" id="agenda">
+        <header class="page-header"><div><p class="eyebrow">ORGANIZZA IL TEMPO</p><h1>La tua agenda</h1><p class="intro">Pianifica con calma, una cosa alla volta.</p></div><button class="primary" data-open="taskDialog">+ Nuova attività</button></header>
+        <section class="calendar-card">
+          <div class="calendar-view-switch"><button class="view-switch active" data-calendar-view="month">Mese</button><button class="view-switch" data-calendar-view="week">Settimana</button></div>
+          <div class="calendar-bar"><button class="month-button" id="previousMonth" aria-label="Periodo precedente">←</button><h2 id="monthTitle"></h2><button class="month-button" id="nextMonth" aria-label="Periodo successivo">→</button></div>
+          <div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div>
+          <div class="calendar-days" id="calendarDays"></div>
+          <div class="weekly-agenda" id="weeklyAgenda"></div>
+          <div class="calendar-legend"><span><i class="legend-dot task-dot"></i>Compiti e verifiche</span><span><i class="legend-dot note-dot"></i>Appunti veloci</span></div>
+          <div class="calendar-notes-preview" id="calendarNotesPreview"></div>
+        </section>
+        <section class="section-heading tight"><div><p class="eyebrow">TUTTE LE ATTIVITÀ</p><h2>La lista</h2></div><div class="filters" role="group" aria-label="Filtra attività"><button class="filter active" data-filter="open">Da fare</button><button class="filter" data-filter="done">Completate</button><button class="filter" data-filter="all">Tutte</button></div></section>
+        <div class="task-select-filters"><select id="filterSubject" aria-label="Filtra per materia"><option value="all">Tutte le materie</option></select><select id="filterType" aria-label="Filtra per tipo"><option value="all">Tutti i tipi</option><option value="Compito">Compiti</option><option value="Verifica">Verifiche</option><option value="Interrogazione">Interrogazioni</option><option value="Studio">Studio</option></select></div>
+        <div class="task-list full" id="allTasks"></div>
+      </section>
+
+      <section class="page" id="materie">
+        <header class="page-header"><div><p class="eyebrow">IL TUO SPAZIO</p><h1>Le materie</h1><p class="intro">Ogni materia ha compiti, appunti e un piccolo indicatore di progresso.</p></div><button class="primary" data-open="subjectDialog">+ Aggiungi materia</button></header>
+        <div class="subjects" id="subjects"></div>
+        <section class="notes-card">
+          <div><p class="eyebrow">APPUNTO VELOCE</p><h2>Non perdere un pensiero.</h2><p>Scrivi qui un promemoria, una domanda o qualcosa da ripassare.</p></div>
+          <div class="note-form"><textarea id="quickNote" placeholder="Es. Chiedere al prof il capitolo per la verifica…"></textarea><button class="primary" id="saveNote">Salva appunto</button><p class="saved-note" id="savedNote"></p></div>
+        </section>
+        <section class="section-heading notes-heading"><div><p class="eyebrow">ARCHIVIO</p><h2>I tuoi appunti</h2></div></section>
+        <div class="notes-archive" id="notesArchive"></div>
+      </section>
+
+      <section class="page" id="progressi">
+        <header class="page-header"><div><p class="eyebrow">PASSO DOPO PASSO</p><h1>I tuoi progressi</h1><p class="intro">Non serve fare tutto subito: conta continuare.</p></div><button class="primary" data-open="goalDialog">+ Nuovo obiettivo</button></header>
+        <section class="progress-overview" id="progressOverview"></section>
+        <section class="section-heading"><div><p class="eyebrow">OBIETTIVI</p><h2>Su cosa vuoi puntare?</h2></div></section>
+        <div class="goals" id="goals"></div>
+      </section>
+
+      <section class="page" id="voti">
+        <header class="page-header"><div><p class="eyebrow">TUTTO SOTTO CONTROLLO</p><h1>I tuoi voti</h1><p class="intro">Aggiungi un voto quando arriva: le medie si aggiornano da sole.</p></div><button class="primary" data-open="gradeDialog">+ Aggiungi voto</button></header>
+        <section class="grade-summary" id="gradeSummary"></section>
+        <section class="grade-chart-card"><div><p class="eyebrow">ANDAMENTO</p><h2>I voti nel tempo</h2></div><div class="grade-chart" id="gradeChart"></div></section>
+        <section class="section-heading"><div><p class="eyebrow">MATERIA PER MATERIA</p><h2>Le tue medie</h2></div></section>
+        <div class="grade-subjects" id="gradeSubjects"></div>
+        <section class="general-average" id="generalAverage"></section>
+      </section>
+    </main>
+
+    <dialog id="taskDialog">
+      <form method="dialog" id="taskForm">
+        <button class="close" value="cancel" aria-label="Chiudi">×</button><p class="eyebrow">NUOVA ATTIVITÀ</p><h2>Cosa devi fare?</h2>
+        <label>Titolo<input id="taskName" required maxlength="80" placeholder="Es. Ripassare le equazioni" /></label>
+        <div class="form-row"><label>Materia<select id="taskSubject"></select></label><label>Tipo<select id="taskType"><option value="Compito">Compito</option><option value="Verifica">Verifica</option><option value="Interrogazione">Interrogazione</option><option value="Studio">Studio</option></select></label></div>
+        <label>Quando?<input id="taskDate" required type="date" /></label>
+        <button class="primary wide" type="submit">Aggiungi all'agenda</button>
+      </form>
+    </dialog>
+
+    <dialog id="subjectDialog">
+      <form method="dialog" id="subjectForm"><button class="close" value="cancel" aria-label="Chiudi">×</button><p class="eyebrow">NUOVA MATERIA</p><h2>Personalizza il tuo spazio.</h2><label>Nome materia<input id="subjectName" required maxlength="40" placeholder="Es. Storia" /></label><label>Colore<select id="subjectColor"><option value="purple">Viola</option><option value="orange">Arancio</option><option value="blue">Blu</option><option value="green">Verde</option></select></label><button class="primary wide" type="submit">Crea materia</button></form>
+    </dialog>
+
+    <dialog id="editSubjectDialog">
+      <form method="dialog" id="editSubjectForm"><button class="close" value="cancel" aria-label="Chiudi">×</button><p class="eyebrow">MODIFICA MATERIA</p><h2>Rendila riconoscibile.</h2><label>Nome materia<input id="editSubjectName" required maxlength="40" /></label><label>Colore<select id="editSubjectColor"><option value="purple">Viola</option><option value="orange">Arancio</option><option value="blue">Blu</option><option value="green">Verde</option></select></label><button class="primary wide" type="submit">Salva modifiche</button></form>
+    </dialog>
+
+    <dialog id="goalDialog">
+      <form method="dialog" id="goalForm"><button class="close" value="cancel" aria-label="Chiudi">×</button><p class="eyebrow">NUOVO OBIETTIVO</p><h2>Un piccolo traguardo.</h2><label>Obiettivo<input id="goalName" required maxlength="80" placeholder="Es. Finire tutti i compiti entro venerdì" /></label><label>Quante attività servono?<input id="goalTarget" required type="number" min="1" value="5" /></label><button class="primary wide" type="submit">Aggiungi obiettivo</button></form>
+    </dialog>
+
+    <dialog id="gradeDialog">
+      <form method="dialog" id="gradeForm"><button class="close" value="cancel" aria-label="Chiudi">×</button><p class="eyebrow">NUOVO VOTO</p><h2>Com'è andata?</h2><div class="form-row"><label>Materia<select id="gradeSubject"></select></label><label>Voto<input id="gradeValue" required type="number" min="1" max="10" step="0.25" placeholder="Es. 8" /></label></div><label>Data<input id="gradeDate" required type="date" /></label><button class="primary wide" type="submit">Salva voto</button></form>
+    </dialog>
+
+    <dialog id="noteDialog">
+      <form method="dialog" id="noteForm"><button class="close" value="cancel" aria-label="Chiudi">×</button><p class="eyebrow">MODIFICA APPUNTO</p><h2>Aggiusta il promemoria.</h2><label>Testo<textarea id="editNoteText" required maxlength="500"></textarea></label><button class="primary wide" type="submit">Salva appunto</button></form>
+    </dialog>
+
+    <template id="emptyTasks"><div class="empty-state"><span>✦</span><p>Qui è tutto libero.</p><small>Aggiungi una nuova attività quando vuoi.</small></div></template>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+.calendar-legend { display:flex; flex-wrap:wrap; gap:14px; margin:17px 4px 0; color:var(--muted); font-size:10px; font-weight:600; }
+.legend-dot { display:inline-block; width:7px; height:7px; margin-right:5px; border-radius:50%; }.task-dot { background:var(--orange); }.note-dot { background:var(--green); }
+.calendar-day { border:0; cursor:pointer; text-align:left; font:inherit; color:inherit; }.calendar-day.selected { outline:2px solid var(--lilac); outline-offset:1px; }.calendar-day.today.selected { outline-color:#40317e; }
+.calendar-indicators { position:absolute; bottom:10px; left:10px; display:flex; gap:4px; }.calendar-dot { position:static !important; display:block; }.calendar-dot.note { background:var(--green); }
+.calendar-notes-preview { margin-top:15px; padding:13px 14px; border-radius:10px; background:var(--sand); }.calendar-notes-preview:empty { display:none; }.calendar-notes-preview h3 { margin:0 0 8px; font-size:12px; }.calendar-note-item { margin:0; color:var(--muted); font-size:12px; line-height:1.45; }.calendar-note-item + .calendar-note-item { margin-top:6px; }
